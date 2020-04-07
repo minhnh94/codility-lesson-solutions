@@ -1,17 +1,16 @@
 def solution(m, a):
+    visited = [False] * (m + 1)
+    start = end = 0
     count = 0
-    for start in range(len(a)):
-        count += 1
-        if count >= 1000000000:
-            return count
-        end = start + 1
-        while end < len(a) and len(set(a[start:end + 1])) == len(a[start:end + 1]):
+    while start < len(a):
+        if end < len(a) and visited[a[end]] is False:
+            visited[a[end]] = True
             end += 1
-            count += 1
+        else:
+            count += end - start
             if count >= 1000000000:
-                return count
+                return 1000000000
+            visited[a[start]] = False
+            start += 1
 
     return count
-
-
-print(solution(6, [3, 4, 5, 5, 2]))
